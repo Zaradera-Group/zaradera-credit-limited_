@@ -1,0 +1,193 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  ZARADERA CREDIT LIMITED — Design System
+  Palette: Deep Navy #060243 + Primary Orange #F24C21
+  Type: Manrope (display) + Inter (body)
+*/
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand tokens */
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-soft: var(--navy-soft);
+  --color-orange: var(--orange);
+  --color-orange-soft: var(--orange-soft);
+  --color-cream: var(--cream);
+  --color-slate-muted: var(--slate-muted);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --navy: #060243;
+  --navy-deep: #04012c;
+  --navy-soft: #14114f;
+  --orange: #f24c21;
+  --orange-soft: #ff6a42;
+  --cream: #f7f4ee;
+  --slate-muted: #5a5f73;
+
+  /* Semantic (light / editorial) */
+  --background: #f7f4ee;
+  --foreground: #0a0730;
+  --card: #ffffff;
+  --card-foreground: #0a0730;
+  --popover: #ffffff;
+  --popover-foreground: #0a0730;
+  --primary: #f24c21;
+  --primary-foreground: #ffffff;
+  --secondary: #ece7dd;
+  --secondary-foreground: #0a0730;
+  --muted: #eeeae1;
+  --muted-foreground: #5a5f73;
+  --accent: #060243;
+  --accent-foreground: #ffffff;
+  --destructive: #c02a1b;
+  --destructive-foreground: #ffffff;
+  --border: #e0dacd;
+  --input: #d8d2c4;
+  --ring: #f24c21;
+
+  --radius: 0.5rem;
+}
+
+/* Dark navy inverted surface — apply on sections that should read as deep-navy */
+.zar-dark {
+  color-scheme: dark;
+  --background: #060243;
+  --foreground: #f4f2ff;
+  --card: #0d0a4a;
+  --card-foreground: #f4f2ff;
+  --popover: #0d0a4a;
+  --popover-foreground: #f4f2ff;
+  --primary: #f24c21;
+  --primary-foreground: #ffffff;
+  --secondary: #141155;
+  --secondary-foreground: #f4f2ff;
+  --muted: #14114f;
+  --muted-foreground: #a7a6d4;
+  --accent: #f24c21;
+  --accent-foreground: #ffffff;
+  --border: color-mix(in oklab, #ffffff 12%, transparent);
+  --input: color-mix(in oklab, #ffffff 18%, transparent);
+  --ring: #f24c21;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--orange);
+    color: #fff;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  /* The signature "Zaradera line" */
+  .zar-line {
+    background: linear-gradient(90deg, transparent, var(--orange), transparent);
+    height: 1px;
+  }
+
+  .display-hero {
+    font-size: clamp(2.6rem, 6.5vw, 5.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+  .display-xl {
+    font-size: clamp(2rem, 4.5vw, 3.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+  .display-lg {
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
+
+/* Motion safety */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html { scroll-behavior: smooth; }
+
+/* Branded scrollbar: subtle navy track with an orange connection line. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--orange) var(--navy-deep);
+}
+
+html::-webkit-scrollbar { width: 10px; }
+html::-webkit-scrollbar-track { background: var(--navy-deep); }
+html::-webkit-scrollbar-thumb {
+  border: 2px solid var(--navy-deep);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--orange-soft), var(--orange));
+}
+html::-webkit-scrollbar-thumb:hover { background: var(--orange-soft); }
