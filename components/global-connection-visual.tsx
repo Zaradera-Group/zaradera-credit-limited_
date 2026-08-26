@@ -7,7 +7,7 @@ import { diasporaNodes, nigeriaNode } from '@/lib/site.config'
 /**
  * The signature Zaradera network motif.
  * An abstract coordinate field where fine orange light-paths converge on Lagos.
- * Reacts gently to the pointer with layered parallax. Restrained by design —
+ * Reacts gently to the pointer with layered parallax. Restrained by design,
  * this is financial infrastructure, not a game.
  */
 export function GlobalConnectionVisual({

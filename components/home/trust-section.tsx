@@ -34,7 +34,7 @@ export function TrustSection() {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div>
             <Reveal>
-              <p className="eyebrow text-orange">05 — Why Zaradera</p>
+              <p className="eyebrow text-orange">05 Why Zaradera</p>
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="display-xl mt-4 font-display font-bold text-balance text-foreground">
@@ -43,7 +43,7 @@ export function TrustSection() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
-                Zaradera Credit Limited exists to give Nigerians, at home and abroad, a financial
+                Zaradera Credit Limited exists to give customers in Nigeria and people worldwide a financial
                 partner they can rely on. Every product is designed to be understood, not just
                 signed.
               </p>

@@ -39,8 +39,8 @@ export function SiteFooter() {
           <div className="max-w-xs">
             <Wordmark className="text-white" showSub />
             <p className="mt-4 text-sm leading-relaxed text-white/60">
-              Accessible, responsible financial solutions for customers in Nigeria and Nigerians
-              connecting from abroad. Financial opportunity, connected.
+              Accessible, responsible financial solutions for individuals and businesses in Nigeria
+              and across international markets. Financial opportunity, connected.
             </p>
           </div>
 
@@ -78,6 +78,19 @@ export function SiteFooter() {
                     rel="noopener noreferrer"
                   >
                     {s.label}
+                  </a>
+                </li>
+              ))}
+              {siteConfig.whatsapp.map((contact) => (
+                <li key={contact.href}>
+                  <a
+                    href={contact.href}
+                    className="text-sm text-white/70 transition-colors hover:text-orange"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${contact.label}: ${contact.number}`}
+                  >
+                    {contact.label}
                   </a>
                 </li>
               ))}

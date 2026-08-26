@@ -6,5 +6,5 @@ export default function Page(){return <LegalPage title="Terms of Use" descriptio
   {title:'Information, not financial advice',body:'Website content is general information and does not constitute financial, investment, legal, or tax advice. An enquiry is not an application, approval, commitment, or offer of credit.'},
   {title:'Availability and accuracy',body:'We aim to keep information accurate and services available, but cannot guarantee that every page will always be complete, current, or uninterrupted. Product-specific terms provided through an authorised process take precedence over general website content.'},
   {title:'Acceptable use',body:'You must not misuse the website, attempt unauthorised access, submit unlawful or harmful material, or interfere with its operation.'},
-  {title:'Contact',body:'Questions about these terms can be sent to hello@zaraderagroup.com. Final terms should be approved by qualified counsel before production launch.'},
+  {title:'Contact',body:'Questions about these terms can be sent to support@zaraderagroup.com. Final terms should be approved by qualified counsel before production launch.'},
 ]}/>}

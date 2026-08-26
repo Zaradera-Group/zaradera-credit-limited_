@@ -31,14 +31,14 @@ export function DiasporaPreview() {
             >
               <Globe2 className="size-6 text-orange" strokeWidth={1.5} />
               <p className="mt-3 max-w-[12rem] text-sm leading-relaxed text-white/80">
-                Serving Nigerians across the UK, US, Canada, EU and the Gulf.
+                Serving clients across the UK, US, Canada, EU and the Gulf.
               </p>
             </motion.div>
           </div>
 
           <div className="order-1 lg:order-2">
             <Reveal>
-              <p className="eyebrow text-orange">06 — For the Diaspora</p>
+              <p className="eyebrow text-orange">06 For the Diaspora</p>
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="display-xl mt-4 font-display font-bold text-balance text-white">

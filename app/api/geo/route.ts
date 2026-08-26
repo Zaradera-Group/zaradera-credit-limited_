@@ -5,7 +5,7 @@ import { headers } from 'next/headers'
  * Privacy-conscious soft geolocation.
  * Returns only a coarse audience hint ("nigeria" | "international") derived from
  * Vercel's edge country header. No IP is stored or returned. This NEVER forces a
- * redirect — it only lets the UI personalise the greeting.
+ * redirect. It only lets the UI personalise the greeting.
  */
 export async function GET() {
   const h = await headers()

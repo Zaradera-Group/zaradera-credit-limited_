@@ -95,11 +95,12 @@ export function SiteNav({ overlayHero = true }: { overlayHero?: boolean }) {
               {routerOpen && (
                 <motion.div
                   role="menu"
+                  onMouseEnter={() => setRouterOpen(true)}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute right-0 top-[calc(100%+0.5rem)] w-72 overflow-hidden rounded-2xl border border-border bg-popover p-2 text-popover-foreground shadow-xl"
+                  className="absolute right-0 top-[calc(100%+0.5rem)] w-72 rounded-2xl border border-border bg-popover p-2 text-popover-foreground shadow-xl before:absolute before:-top-2 before:left-0 before:h-2 before:w-full before:content-['']"
                 >
                   <p className="px-3 py-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                     Where can we help you?
@@ -182,7 +183,7 @@ export function SiteNav({ overlayHero = true }: { overlayHero?: boolean }) {
               </ul>
               <div className="mt-6 flex flex-col gap-3">
                 <Cta onClick={() => { setMenuOpen(false); goToLoans() }} className="w-full">
-                  I&apos;m in Nigeria — Access Loans
+                  I&apos;m in Nigeria. Access Loans
                 </Cta>
                 <Cta
                   href="/diaspora"
@@ -190,7 +191,7 @@ export function SiteNav({ overlayHero = true }: { overlayHero?: boolean }) {
                   className="w-full"
                   onClick={() => { setAudience('international'); setMenuOpen(false) }}
                 >
-                  I&apos;m Abroad — Diaspora Services
+                  I&apos;m Abroad. Diaspora Services
                 </Cta>
               </div>
             </div>

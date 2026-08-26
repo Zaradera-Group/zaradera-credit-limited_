@@ -1,5 +1,5 @@
 /**
- * ZARADERA CREDIT LIMITED — Central configuration layer.
+ * ZARADERA CREDIT LIMITED central configuration layer.
  * Edit values here rather than scattering them through components.
  *
  * Environment placeholders (set in your Vercel Project Settings → Environment Variables):
@@ -14,7 +14,7 @@ export const siteConfig = {
   shortName: 'Zaradera',
   tagline: 'Financial opportunity, connected.',
   description:
-    'Zaradera Credit Limited provides accessible, responsible financial solutions for customers in Nigeria and Nigerians connecting from abroad.',
+    'Zaradera Credit Limited provides accessible, responsible financial solutions for individuals and businesses in Nigeria and across international markets.',
   url: 'https://zaradera.com',
 
   // Public destination for the Nigerian lending platform.
@@ -26,11 +26,16 @@ export const siteConfig = {
 
   // Public-facing contact details (safe to expose). The enquiry destination
   // inbox (COMPANY_EMAIL) is intentionally NOT referenced client-side.
-  email: 'hello@zaraderagroup.com',
+  email: 'support@zaraderagroup.com',
   phone: '+2347017683590',
 
   social: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/107362364/' },
+  ],
+
+  whatsapp: [
+    { label: 'WhatsApp Nigeria', number: '+234 701 768 3590', href: 'https://wa.me/2347017683590' },
+    { label: 'WhatsApp UK', number: '+44 7337 086511', href: 'https://wa.me/447337086511' },
   ],
 
   nav: [
@@ -64,6 +69,26 @@ export const enquiryCategories: EnquiryCategory[] = [
 ]
 
 export const contactMethods = ['Email', 'Phone', 'WhatsApp'] as const
+
+export const loanProducts = [
+  'Personal finance',
+  'Business finance',
+  'Property-related finance',
+  'Asset finance',
+  'Other / Not sure',
+] as const
+
+export const loanTenures = [
+  'Less than 6 months',
+  '6 months',
+  '12 months',
+  '18 months',
+  '24 months',
+  'More than 24 months',
+  'Not sure yet',
+] as const
+
+export const supportedCurrencies = ['USD', 'GBP', 'EUR', 'CAD', 'AED'] as const
 
 export const solutions = [
   {
@@ -99,7 +124,7 @@ export const solutions = [
 export const trustPillars = [
   {
     title: 'Responsible Finance',
-    body: 'Solutions designed around sustainable, long-term financial relationships — not short-term pressure.',
+    body: 'Solutions designed around sustainable, long-term financial relationships without short-term pressure.',
   },
   {
     title: 'Security First',
@@ -121,7 +146,7 @@ export const faqCategories = [
     items: [
       {
         q: 'What is Zaradera Credit Limited?',
-        a: 'Zaradera Credit Limited is a Nigeria-rooted financial services company focused on making financial opportunities easier to understand and access. We support customers in Nigeria through our dedicated lending journey and provide a direct enquiry route for Nigerians and prospective clients living abroad.',
+        a: 'Zaradera Credit Limited is a Nigeria-rooted financial services company focused on making financial opportunities easier to understand and access. We support customers in Nigeria through our dedicated lending journey and provide a direct enquiry route for individuals and businesses outside Nigeria.',
       },
       {
         q: 'Who can use Zaradera?',
@@ -146,7 +171,7 @@ export const faqCategories = [
     category: 'Diaspora',
     items: [
       {
-        q: 'I live abroad — how does Zaradera help me?',
+        q: 'I live abroad. How does Zaradera help me?',
         a: 'Our Diaspora Services page gives you a direct way to explain what you are working towards in Nigeria. After you submit an enquiry, our team reviews the information and contacts you through your preferred channel to clarify your needs and discuss an appropriate next step. An enquiry is not an application, approval, or offer of finance.',
       },
       {

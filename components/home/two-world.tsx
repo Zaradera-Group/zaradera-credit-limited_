@@ -16,7 +16,7 @@ export function TwoWorld() {
     <section id="nigeria" className="zar-dark scroll-mt-20 bg-navy-deep text-white">
       <div className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8 lg:pt-32">
         <Reveal>
-          <p className="eyebrow text-orange">02 — Two Worlds</p>
+          <p className="eyebrow text-orange">02 Two Worlds</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="display-xl mt-4 max-w-3xl font-display font-bold text-balance">
@@ -88,8 +88,8 @@ export function TwoWorld() {
               Stay financially connected, wherever you are.
             </h3>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-white/70">
-              Enquiry and financial-service support for Nigerians and prospects connecting from
-              abroad, routed straight to our team.
+              Enquiry and financial-service support for individuals and businesses outside Nigeria,
+              routed straight to our team.
             </p>
             <span className="mt-5 inline-flex items-center gap-2 font-semibold text-orange">
               Explore Diaspora Services

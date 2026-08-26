@@ -8,7 +8,7 @@ export function IntroStatement() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-2">
             <Reveal>
-              <p className="eyebrow text-orange">01 — Our Promise</p>
+              <p className="eyebrow text-orange">01 Our Promise</p>
             </Reveal>
           </div>
           <div className="lg:col-span-10">
@@ -20,7 +20,7 @@ export function IntroStatement() {
             <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
               <Reveal delay={0.1}>
                 <p className="text-lg leading-relaxed text-muted-foreground">
-                  Zaradera Credit Limited provides accessible, responsible financial solutions —
+                  Zaradera Credit Limited provides accessible, responsible financial solutions,
                   creating clear pathways for customers at home in Nigeria and for those building
                   their lives internationally.
                 </p>

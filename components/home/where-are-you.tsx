@@ -27,7 +27,7 @@ export function WhereAreYou() {
       />
 
       <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <p className="eyebrow text-center text-orange">04 — Choose Your Path</p>
+        <p className="eyebrow text-center text-orange">04 Choose Your Path</p>
         <h2 className="display-xl mt-4 text-center font-display font-bold text-balance">
           Where are you today?
         </h2>

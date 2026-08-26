@@ -44,7 +44,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.8 }}
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
           >
-            <Cta onClick={goToLoans} withArrow ariaLabel="I'm in Nigeria — access Zaradera loans">
+            <Cta onClick={goToLoans} withArrow ariaLabel="I'm in Nigeria. Access Zaradera loans">
               I&apos;m in Nigeria
             </Cta>
             <Cta
@@ -52,7 +52,7 @@ export function Hero() {
               variant="outline"
               className="border-white/25 text-white"
               onClick={() => setAudience('international')}
-              ariaLabel="I'm abroad — explore diaspora services"
+              ariaLabel="I'm abroad. Explore diaspora services"
             >
               I&apos;m Abroad
             </Cta>

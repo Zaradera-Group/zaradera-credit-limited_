@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
-  ZARADERA CREDIT LIMITED — Design System
+  ZARADERA CREDIT LIMITED Design System
   Palette: Deep Navy #060243 + Primary Orange #F24C21
   Type: Manrope (display) + Inter (body)
 */
@@ -84,7 +84,7 @@
   --radius: 0.5rem;
 }
 
-/* Dark navy inverted surface — apply on sections that should read as deep-navy */
+/* Dark navy inverted surface for sections that should read as deep navy. */
 .zar-dark {
   color-scheme: dark;
   --background: #060243;

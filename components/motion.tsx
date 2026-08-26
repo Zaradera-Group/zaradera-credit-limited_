@@ -5,7 +5,7 @@ import type { ReactNode, ElementType } from 'react'
 
 /* ----------------------------------------------------------------
    Shared, purposeful motion primitives.
-   "Movement must explain something." — direction, connection, hierarchy.
+   "Movement must explain something": direction, connection, hierarchy.
 ------------------------------------------------------------------- */
 
 export function Reveal({

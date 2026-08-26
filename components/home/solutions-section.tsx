@@ -9,7 +9,7 @@ export function SolutionsSection() {
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <Reveal>
-              <p className="eyebrow text-orange">03 — Solutions</p>
+              <p className="eyebrow text-orange">03 Solutions</p>
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="display-lg mt-4 max-w-2xl font-display font-bold text-foreground text-balance">
