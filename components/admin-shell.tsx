@@ -1,0 +1,3 @@
+import Link from 'next/link'
+import type { ReactNode } from 'react'
+export function AdminShell({children}:{children:ReactNode}){return <div className="min-h-screen bg-[#f2f1f3]"><header className="border-b bg-navy-deep text-white"><div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4"><Link href="/admin" className="font-display text-xl font-bold">Zaradera CMS</Link><nav className="flex items-center gap-5 text-sm"><Link href="/admin/posts">Posts</Link><Link href="/admin/posts/new">New post</Link><form action="/api/admin/logout" method="post"><button className="text-white/70 hover:text-white">Sign out</button></form></nav></div></header><main className="mx-auto max-w-7xl px-4 py-10">{children}</main></div>}

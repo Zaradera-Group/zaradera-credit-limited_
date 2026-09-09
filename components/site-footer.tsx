@@ -8,6 +8,7 @@ const columns = [
     links: [
       { label: 'About', href: '/about' },
       { label: 'Solutions', href: '/solutions' },
+      { label: 'Products', href: '/products' },
       { label: 'Nigeria', href: '/#nigeria' },
       { label: 'Diaspora', href: '/diaspora' },
     ],
@@ -18,6 +19,7 @@ const columns = [
       { label: 'Contact', href: '/contact' },
       { label: 'FAQs', href: '/faq' },
       { label: 'Resources', href: '/insights' },
+      { label: 'Blog', href: '/blog' },
     ],
   },
   {

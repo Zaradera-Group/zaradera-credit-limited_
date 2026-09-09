@@ -15,6 +15,7 @@ export function SiteNav({ overlayHero = true }: { overlayHero?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [routerOpen, setRouterOpen] = useState(false)
+  const [aboutOpen, setAboutOpen] = useState(false)
   const pathname = usePathname()
   const { setAudience, goToLoans } = useAudience()
 
@@ -28,6 +29,7 @@ export function SiteNav({ overlayHero = true }: { overlayHero?: boolean }) {
   useEffect(() => {
     setMenuOpen(false)
     setRouterOpen(false)
+    setAboutOpen(false)
   }, [pathname])
 
   useEffect(() => {
@@ -52,19 +54,19 @@ export function SiteNav({ overlayHero = true }: { overlayHero?: boolean }) {
         <Wordmark showSub onClick={() => setMenuOpen(false)} />
 
         <ul className="hidden items-center gap-1 lg:flex">
-          {siteConfig.nav.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className={cn(
-                  'group relative rounded-full px-3 py-2 text-sm font-medium transition-colors',
-                  solid ? 'text-foreground/80 hover:text-foreground' : 'text-white/85 hover:text-white',
-                )}
-              >
-                {item.label}
+          {siteConfig.nav.map((item) => item.href === '/about' ? (
+            <li key={item.href} className="relative" onMouseEnter={() => setAboutOpen(true)} onMouseLeave={() => setAboutOpen(false)}>
+              <button type="button" onClick={() => setAboutOpen(value => !value)} aria-expanded={aboutOpen} aria-haspopup="menu" className={cn('group relative flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition-colors', solid ? 'text-foreground/80 hover:text-foreground' : 'text-white/85 hover:text-white')}>
+                About <ChevronDown className={cn('size-3.5 transition-transform', aboutOpen && 'rotate-180')} aria-hidden />
                 <span className="absolute inset-x-3 -bottom-0.5 h-px origin-left scale-x-0 bg-orange transition-transform duration-300 group-hover:scale-x-100" />
-              </Link>
+              </button>
+              <AnimatePresence>{aboutOpen && <motion.div role="menu" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} exit={{opacity:0,y:8}} transition={{duration:.18}} className="absolute left-0 top-[calc(100%+0.5rem)] w-56 rounded-2xl border border-border bg-popover p-2 text-popover-foreground shadow-xl before:absolute before:-top-2 before:left-0 before:h-2 before:w-full before:content-['']">
+                <Link role="menuitem" href="/about" className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted">About Zaradera<span className="mt-1 block text-xs font-normal text-muted-foreground">Our purpose and approach</span></Link>
+                <Link role="menuitem" href="/about/team" className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted">Our Team<span className="mt-1 block text-xs font-normal text-muted-foreground">Meet our leadership</span></Link>
+              </motion.div>}</AnimatePresence>
             </li>
+          ) : (
+            <li key={item.href}><Link href={item.href} className={cn('group relative rounded-full px-3 py-2 text-sm font-medium transition-colors', solid ? 'text-foreground/80 hover:text-foreground' : 'text-white/85 hover:text-white')}>{item.label}<span className="absolute inset-x-3 -bottom-0.5 h-px origin-left scale-x-0 bg-orange transition-transform duration-300 group-hover:scale-x-100" /></Link></li>
           ))}
         </ul>
 
@@ -169,7 +171,7 @@ export function SiteNav({ overlayHero = true }: { overlayHero?: boolean }) {
           >
             <div className="mx-auto max-h-[calc(100dvh-4rem)] max-w-7xl touch-pan-y overflow-y-auto overscroll-contain px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-4 [-webkit-overflow-scrolling:touch] sm:px-6 sm:pt-6">
               <ul className="flex flex-col">
-                {siteConfig.nav.map((item) => (
+                {siteConfig.nav.flatMap((item) => item.href === '/about' ? [{ label: 'About Zaradera', href: '/about' }, { label: 'Our Team', href: '/about/team' }] : [item]).map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}

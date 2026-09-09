@@ -42,9 +42,10 @@ export const siteConfig = {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Solutions', href: '/solutions' },
+    { label: 'Products', href: '/products' },
     { label: 'Nigeria', href: '/#nigeria' },
     { label: 'Diaspora', href: '/diaspora' },
-    { label: 'Resources', href: '/insights' },
+    { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
   ],
 } as const
@@ -69,6 +70,18 @@ export const enquiryCategories: EnquiryCategory[] = [
 ]
 
 export const contactMethods = ['Email', 'Phone', 'WhatsApp'] as const
+
+export const trustedByHeading = 'Trusted By'
+
+export const trustedByLogos = [
+  { src: '/assets/Screenshot-from-2025-11-15-10-47-07.png', alt: 'Money Lenders Association', href: 'https://moneylenders.ng/' },
+  { src: '/assets/0b8c5487-02b6-4a9e-bf8e-b5f82477e2ad-removebg-preview.png', alt: 'Periculum', href: 'https://www.periculum.io/' },
+  { src: '/assets/WhatsApp_Image_2025-11-11_at_11.23.34_PM-removebg-preview-e1763199888705.png', alt: 'CreditRegistry', href: 'https://www.creditregistry.ng/' },
+  { src: '/assets/WhatsApp_Image_2025-11-11_at_11.12.52_PM-removebg-preview-e1763199972521.png', alt: 'Lendsqr', href: 'https://lendsqr.com/' },
+  { src: '/assets/WhatsApp_Image_2025-11-14_at_10.51.20_AM-removebg-preview-e1763199800934.png', alt: 'Remita', href: 'https://www.remita.net/' },
+  { src: '/assets/WhatsApp_Image_2025-11-14_at_3.38.35_PM-removebg-preview.png', alt: 'FirstCentral Credit Bureau', href: 'https://firstcentralcreditbureau.com/' },
+  { src: '/assets/WhatsApp_Image_2025-11-14_at_3.29.35_PM-removebg-preview-e1763199751205.png', alt: 'Pink Health Foundation', href: 'https://pinkhealthng.org/' },
+] as const
 
 export const loanProducts = [
   'Personal finance',
