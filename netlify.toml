@@ -1,0 +1,4 @@
+[build.environment]
+  # Next.js includes server-runtime environment references in generated server
+  # artifacts. Keep source scanning enabled while omitting these configured keys.
+  SECRETS_SCAN_OMIT_KEYS = "DATABASE_URL,CRON_SECRET,COMPANY_EMAIL,RESEND_API_KEY,ENQUIRY_FROM_EMAIL,ENQUIRY_QUEUE_KEY,SUPABASE_SERVICE_ROLE_KEY,ADMIN_EMAIL,ADMIN_PASSWORD_SCRYPT,ADMIN_SESSION_SECRET"
