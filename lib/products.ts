@@ -15,7 +15,7 @@ export const products = [
   },
   {
     slug: 'fundme', name: 'FundMe', tagline: 'Acquire eligible assets without making a full upfront payment.',
-    description: 'Zaradera purchases the asset in its name and transfers usage rights to the customer. A 30% equity contribution applies while Zaradera retains 70% ownership until the agreed obligations are completed.',
+    description: 'Zaradera purchases the asset in its name and transfers usage rights to the customer, when the agreed obligation is completed.',
     features: ['Eligible assets may include real estate, vehicles and equipment', 'Tenure: 3–12 months', 'Customer equity contribution: 30%', 'Ownership transfers after agreed payments are completed', 'Subject to financial-capacity assessment'],
     icon: HandCoins, featured: true,
   },
