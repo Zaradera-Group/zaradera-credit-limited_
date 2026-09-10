@@ -27,8 +27,8 @@ export const siteConfig = {
   // Public-facing contact details (safe to expose). The enquiry destination
   // inbox (COMPANY_EMAIL) is intentionally NOT referenced client-side.
   email: 'support@zaraderagroup.com',
-  phone: '+2347017683590',
-  phoneUk: '+44 7827 544317',
+  phone: '+234 701 768 3590',
+  phoneUk: '+44 0733 7086511',
 
   social: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/107362364/' },
