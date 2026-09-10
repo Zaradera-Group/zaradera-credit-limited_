@@ -11,9 +11,9 @@ export async function POST(request: Request) {
   }
 
   const configuredUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!configuredUrl) return NextResponse.json({ error: 'The Supabase project URL is missing. Add SUPABASE_URL in Netlify and redeploy.' }, { status: 503 })
-  if (!key) return NextResponse.json({ error: 'The Supabase service-role key is missing. Add SUPABASE_SERVICE_ROLE_KEY in Netlify and redeploy.' }, { status: 503 })
+  if (!key) return NextResponse.json({ error: 'The Supabase server key is not available to this deployed function. Add SUPABASE_SECRET_KEY (recommended) or SUPABASE_SERVICE_ROLE_KEY to this Netlify site’s Production context, then redeploy.' }, { status: 503 })
 
   let base: string
   try {
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     if (!response.ok) {
       const detail = await response.text()
       console.error('Supabase blog image upload failed', response.status, detail)
-      if (response.status === 401 || response.status === 403) return NextResponse.json({ error: 'Supabase rejected the Storage key. Confirm that SUPABASE_SERVICE_ROLE_KEY contains the service-role key, then redeploy.' }, { status: 502 })
+      if (response.status === 401 || response.status === 403) return NextResponse.json({ error: 'Supabase rejected the Storage key. Confirm that SUPABASE_SECRET_KEY contains a secret key or SUPABASE_SERVICE_ROLE_KEY contains the legacy service-role key, then redeploy.' }, { status: 502 })
       if (response.status === 404 || /bucket not found/i.test(detail)) return NextResponse.json({ error: 'The Supabase Storage bucket “blog-media” was not found. Create it and make it public.' }, { status: 502 })
       return NextResponse.json({ error: 'Supabase could not store this image. Check the function log for the response from Storage.' }, { status: 502 })
     }
