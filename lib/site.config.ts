@@ -15,7 +15,7 @@ export const siteConfig = {
   tagline: 'Financial opportunity, connected.',
   description:
     'Zaradera Credit Limited provides accessible, responsible financial solutions for individuals and businesses in Nigeria and across international markets.',
-  url: 'https://zaradera.com',
+  url: 'https://zaraderagroup.com',
 
   // Public destination for the Nigerian lending platform.
   // Falls back to a safe placeholder anchor if the env var is not yet configured.

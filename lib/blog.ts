@@ -14,4 +14,27 @@ export async function getPost(slug: string) { const sql = db(); if (!sql) return
 export async function getPostById(id: string) { const sql = db(); if (!sql) return null; try { const rows = await sql`select * from blog_posts where id=${id} limit 1`; return rows[0] ? map(rows[0]) : null } finally { await sql.end() } }
 export async function getCategories() { const sql = db(); if (!sql) return []; try { const rows = await sql`select distinct category from blog_posts where status='published' order by category`; return rows.map(r => String(r.category)) } catch { return [] } finally { await sql.end() } }
 
-export function contentHtml(markdown: string) { const safe = markdown.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); return safe.split(/\n{2,}/).map(block => { const image=block.match(/^!\[([^\]]*)\]\((https?:\/\/[^)]+)\)$/); if(image)return `<figure><img src="${image[2]}" alt="${image[1]}" loading="lazy"></figure>`; if (block.startsWith('### ')) return `<h3>${block.slice(4)}</h3>`; if (block.startsWith('## ')) return `<h2>${block.slice(3)}</h2>`; if (block.startsWith('# ')) return `<h2>${block.slice(2)}</h2>`; if (block.split('\n').every(line => line.startsWith('- '))) return `<ul>${block.split('\n').map(line => `<li>${line.slice(2)}</li>`).join('')}</ul>`; return `<p>${block.replace(/\n/g,'<br>')}</p>` }).join('').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>') }
+export function contentHtml(markdown: string) {
+  // Force every uploaded image onto its own content block, even when it was
+  // inserted at a cursor beside existing text.
+  const normalized = markdown
+    .replace(/\r\n?/g, '\n')
+    .replace(/(!\[[^\]]*\]\(https?:\/\/[^\s)]+\))/g, '\n\n$1\n\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+  const safe = normalized.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+  return safe.split(/\n{2,}/).map(block => {
+    const image = block.trim().match(/^!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)$/)
+    if (image) return `<figure><img src="${image[2]}" alt="${image[1]}" loading="lazy" decoding="async"></figure>`
+    if (block.startsWith('### ')) return `<h3>${block.slice(4)}</h3>`
+    if (block.startsWith('## ')) return `<h2>${block.slice(3)}</h2>`
+    if (block.startsWith('# ')) return `<h2>${block.slice(2)}</h2>`
+    if (block.split('\n').every(line => line.startsWith('- '))) return `<ul>${block.split('\n').map(line => `<li>${line.slice(2)}</li>`).join('')}</ul>`
+    return `<p>${block.replace(/\n/g, '<br>')}</p>`
+  }).join('')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // The negative lookbehind prevents image syntax from becoming a link if
+    // an invalid image URL is ever entered manually.
+    .replace(/(?<!!)\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+}
