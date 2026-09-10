@@ -61,11 +61,14 @@ export function EnquiryForm({ compact = false, showLoanDetails = false }: { comp
         <label className="text-sm font-semibold">Enquiry type<select className={field} name="category" required defaultValue=""><option value="" disabled>Select one</option>{enquiryCategories.map(x => <option key={x}>{x}</option>)}</select></label>
         <label className="text-sm font-semibold">Preferred contact<select className={field} name="contactMethod" required defaultValue="Email">{contactMethods.map(x => <option key={x}>{x}</option>)}</select></label>
         {showLoanDetails && <fieldset className="rounded-2xl border border-navy/10 bg-navy/[0.035] p-5 sm:col-span-2 sm:p-6">
-          <legend className="px-2"><span className="inline-flex items-center gap-2 font-display text-lg font-bold text-navy"><WalletCards className="size-5 text-orange" />Financing details</span></legend>
-          <p className="mb-5 text-sm leading-relaxed text-muted-foreground">Share what you have in mind so our team can better understand your enquiry.</p>
+          <legend className="sr-only">Financing details</legend>
+          <div className="mb-5">
+            <div className="inline-flex items-center gap-2 font-display text-lg font-bold text-navy"><WalletCards className="size-5 text-orange" aria-hidden="true" />Financing details</div>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Share what you have in mind so our team can better understand your enquiry.</p>
+          </div>
           <div className="grid gap-5 sm:grid-cols-2">
             <label className="text-sm font-semibold">Loan product<select className={field} name="loanProduct" defaultValue=""><option value="">Select a product</option>{loanProducts.map(x => <option key={x}>{x}</option>)}</select></label>
-            <label className="text-sm font-semibold">Tenure<select className={field} name="tenure" defaultValue=""><option value="">Select a tenure</option>{loanTenures.map(x => <option key={x}>{x}</option>)}</select></label>
+            <label className="text-sm font-semibold">Tenor<select className={field} name="tenure" defaultValue=""><option value="">Select a tenor</option>{loanTenures.map(x => <option key={x}>{x}</option>)}</select></label>
             <label className="text-sm font-semibold sm:col-span-2">Requested amount<div className="mt-2 flex overflow-hidden rounded-lg border border-input bg-white transition focus-within:border-orange focus-within:ring-2 focus-within:ring-orange/15"><select name="currency" aria-label="Currency" defaultValue="USD" required={Boolean(amount)} className="min-h-12 border-r border-input bg-muted/50 px-3 text-sm font-semibold outline-none">{supportedCurrencies.map(x => <option key={x}>{x}</option>)}</select><input className="min-h-12 min-w-0 flex-1 px-4 py-3 text-sm outline-none" name="amount" type="text" inputMode="decimal" autoComplete="off" value={amount} onChange={(event) => setAmount(formatAmount(event.target.value))} maxLength={24} placeholder="Enter an amount" /></div></label>
           </div>
         </fieldset>}

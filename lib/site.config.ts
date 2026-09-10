@@ -28,6 +28,7 @@ export const siteConfig = {
   // inbox (COMPANY_EMAIL) is intentionally NOT referenced client-side.
   email: 'support@zaraderagroup.com',
   phone: '+2347017683590',
+  phoneUk: '+44 7827 544317',
 
   social: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/107362364/' },
