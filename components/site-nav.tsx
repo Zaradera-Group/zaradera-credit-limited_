@@ -133,7 +133,7 @@ export function SiteNav({ overlayHero = true }: { overlayHero?: boolean }) {
                       Int
                     </span>
                     <span>
-                      <span className="block text-sm font-semibold">International / Diaspora</span>
+                      <span className="block text-sm font-semibold">Outside Nigeria</span>
                       <span className="block text-xs text-muted-foreground">
                         Speak with Zaradera
                       </span>
@@ -193,7 +193,7 @@ export function SiteNav({ overlayHero = true }: { overlayHero?: boolean }) {
                   className="w-full"
                   onClick={() => { setAudience('international'); setMenuOpen(false) }}
                 >
-                  I&apos;m Abroad. Diaspora Services
+                  I&apos;m Outside Nigeria
                 </Cta>
               </div>
             </div>

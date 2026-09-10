@@ -31,7 +31,7 @@ export function DiasporaPreview() {
             >
               <Globe2 className="size-6 text-orange" strokeWidth={1.5} />
               <p className="mt-3 max-w-[12rem] text-sm leading-relaxed text-white/80">
-                Serving clients across the UK, US, Canada, EU and the Gulf.
+                Serving clients all over the world.
               </p>
             </motion.div>
           </div>
