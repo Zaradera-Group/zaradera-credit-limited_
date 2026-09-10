@@ -5,11 +5,16 @@ import { isAdmin } from '@/lib/admin-auth'
 
 function clean(value: FormDataEntryValue | null, max = 10000) { return String(value || '').trim().slice(0, max) }
 function databaseError(error: unknown) {
-  const detail = error instanceof Error ? error.message : ''
-  if (detail.includes('duplicate key')) return 'That slug is already used by another post. Please choose a different slug.'
-  if (detail.includes('authentication') || detail.includes('ECIRCUITBREAKER')) return 'Supabase rejected the database login. Check DATABASE_URL and wait a few minutes if the connection was temporarily blocked.'
-  if (detail.includes('ENOTFOUND') || detail.includes('getaddrinfo')) return 'The Supabase database host could not be reached. Use the complete Transaction Pooler connection string, including its pooler host and port 6543.'
-  if (detail.includes('blog_posts') && detail.includes('does not exist')) return 'The blog database table does not exist. Run database/blog-cms.sql in the Supabase SQL Editor.'
+  const detail = error instanceof Error ? error.message : String(error)
+  const code = typeof error === 'object' && error !== null && 'code' in error ? String(error.code) : ''
+  console.error('CMS database operation failed', { code, detail })
+  if (code === '23505' || detail.includes('duplicate key')) return 'That slug is already used by another post. Please choose a different slug.'
+  if (code === '28P01' || /authentication|password authentication|ECIRCUITBREAKER/i.test(detail)) return 'Supabase rejected the database login. Confirm the Transaction Pooler username and password in DATABASE_URL, then redeploy.'
+  if (/ENOTFOUND|getaddrinfo|ECONNREFUSED|ETIMEDOUT|fetch failed/i.test(detail)) return 'The Supabase database host could not be reached. Use the complete Transaction Pooler connection string, including its pooler host and port 6543.'
+  if (code === '42P01' || (detail.includes('blog_posts') && detail.includes('does not exist'))) return 'The blog database table does not exist. Run database/blog-cms.sql in the Supabase SQL Editor.'
+  if (code === '42703') return 'The blog database structure is outdated. Run the latest database/blog-cms.sql setup in Supabase.'
+  if (code === '22007' || code === '22008') return 'The publication date is invalid. Choose a valid date and time, then try again.'
+  if (/certificate|SSL|TLS/i.test(detail)) return 'The secure database connection failed. Copy a fresh Transaction Pooler DATABASE_URL from Supabase and redeploy.'
   return 'The post could not be saved. Please check the database connection and try again.'
 }
 
