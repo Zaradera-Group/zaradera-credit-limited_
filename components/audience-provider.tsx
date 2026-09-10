@@ -85,12 +85,16 @@ export function AudienceProvider({ children }: { children: ReactNode }) {
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduce || url.startsWith('#')) {
-      window.location.href = url
+      if (!url.startsWith('#')) window.history.pushState({ zaraderaLoanReturn: true }, '', window.location.href)
+      window.location.assign(url)
       return
     }
     setRedirecting(true)
     window.setTimeout(() => {
-      window.location.href = url
+      // Keep a Zaradera entry immediately behind the external platform. This
+      // remains available even when the lending platform performs redirects.
+      window.history.pushState({ zaraderaLoanReturn: true }, '', window.location.href)
+      window.location.assign(url)
     }, 1450)
   }, [setAudience])
 
