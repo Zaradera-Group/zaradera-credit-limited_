@@ -6,7 +6,7 @@ const columns = [
   {
     title: 'Explore',
     links: [
-      { label: 'About', href: '/about' },
+      { label: 'About Us', href: '/about' },
       { label: 'Solutions', href: '/solutions' },
       { label: 'Products', href: '/products' },
       { label: 'Nigeria', href: '/#nigeria' },

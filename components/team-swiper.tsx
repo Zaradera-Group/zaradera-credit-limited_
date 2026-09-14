@@ -69,7 +69,7 @@ export function TeamSwiper() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3 sm:bottom-8 sm:right-8">
+      <div className="relative z-20 flex flex-wrap items-center justify-center gap-3 border-t border-navy/10 bg-cream/55 px-5 py-5 sm:justify-end sm:px-8">
         <button type="button" onClick={() => step(-1)} aria-label="Previous team member" className="grid size-11 place-items-center rounded-full border border-navy/15 bg-white/90 text-navy backdrop-blur transition hover:border-orange hover:text-orange"><ArrowLeft className="size-4"/></button>
         <div className="flex gap-1.5" role="tablist" aria-label="Choose team member">{teamMembers.map((person,index)=><button key={person.name} type="button" role="tab" aria-selected={index===activeIndex} aria-label={`Show ${person.name}`} onClick={()=>navigate(index)} className={`h-2 rounded-full transition-all duration-300 ${index===activeIndex?'w-7 bg-orange':'w-2 bg-navy/20 hover:bg-navy/40'}`}/>)}</div>
         <button type="button" onClick={() => step(1)} aria-label="Next team member" className="grid size-11 place-items-center rounded-full bg-navy text-white transition hover:bg-orange"><ArrowRight className="size-4"/></button>

@@ -41,7 +41,7 @@ export const siteConfig = {
 
   nav: [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
+    { label: 'About Us', href: '/about' },
     { label: 'Solutions', href: '/solutions' },
     { label: 'Products', href: '/products' },
     { label: 'Nigeria', href: '/#nigeria' },
@@ -102,7 +102,7 @@ export const loanTenures = [
   'Not sure yet',
 ] as const
 
-export const supportedCurrencies = ['USD', 'GBP', 'EUR', 'CAD', 'AED'] as const
+export const supportedCurrencies = ['USD', 'GBP', 'EUR', 'CAD', 'AED', 'NGN'] as const
 
 export const solutions = [
   {

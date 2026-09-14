@@ -14,7 +14,7 @@ export function DiasporaPreview() {
           <div className="relative order-2 lg:order-1">
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
               <Image
-                src="/images/diaspora-lifestyle.png"
+                src="/images/diaspora-lifestyle-v2.png"
                 alt="A Nigerian professional working abroad, staying connected to home"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

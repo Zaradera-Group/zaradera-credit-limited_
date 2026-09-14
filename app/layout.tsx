@@ -4,6 +4,7 @@ import { Manrope, Inter } from 'next/font/google'
 import { siteConfig } from '@/lib/site.config'
 import { CookieConsent } from '@/components/cookie-consent'
 import { AudienceProvider } from '@/components/audience-provider'
+import { ChatAssistant } from '@/components/chat-assistant'
 import './globals.css'
 
 const manrope = Manrope({
@@ -93,6 +94,7 @@ export default function RootLayout({
         <AudienceProvider>
           {children}
           <CookieConsent />
+          {process.env.CHAT_ASSISTANT_ENABLED === 'true' && <ChatAssistant />}
         </AudienceProvider>
         <script
           type="application/ld+json"

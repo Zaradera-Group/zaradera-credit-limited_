@@ -37,7 +37,7 @@ export function TwoWorld() {
           className="group relative h-[440px] min-h-[440px] flex-none overflow-hidden rounded-3xl text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange sm:h-[420px] sm:min-h-[420px] lg:h-[560px] lg:min-h-[560px] lg:flex-1"
         >
           <Image
-            src="/images/nigeria-lifestyle.png"
+            src="/images/nigeria-lifestyle-v2.png"
             alt="A professional standing above the Lagos skyline at dusk"
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
