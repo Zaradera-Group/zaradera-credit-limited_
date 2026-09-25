@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { siteConfig } from '@/lib/site.config'
 import { Wordmark } from '@/components/wordmark'
 
@@ -44,6 +45,18 @@ export function SiteFooter() {
               Accessible, responsible financial solutions for individuals and businesses in Nigeria
               and across international markets. Financial opportunity, connected.
             </p>
+            <div className="mt-8">
+              <h2 className="text-sm font-bold uppercase tracking-[0.16em] text-white">
+                Licensed by
+              </h2>
+              <Image
+                src="/images/licensed-regulators-transparent.png"
+                alt="Nigeria Data Protection Commission and FCCPC"
+                width={1280}
+                height={1226}
+                className="-ml-20 -mt-10 h-auto w-full max-w-[17rem]"
+              />
+            </div>
           </div>
 
           {columns.map((col) => (

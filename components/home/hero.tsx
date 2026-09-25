@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { GlobalConnectionVisual } from '@/components/global-connection-visual'
 import { useAudience } from '@/components/audience-provider'
 import { Cta } from '@/components/cta'
@@ -8,6 +8,8 @@ import { TextReveal } from '@/components/motion'
 
 export function Hero() {
   const { setAudience, goToLoans } = useAudience()
+  const reduceMotion = useReducedMotion()
+  const signature = 'Sustainable Finance'
 
   return (
     <section className="zar-dark relative flex min-h-[100svh] items-center overflow-hidden bg-navy pt-16">
@@ -32,17 +34,47 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
-            className="mt-7 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg"
+            className="mt-10 max-w-2xl text-base leading-relaxed text-white/75 sm:mt-12 sm:text-lg"
           >
             Whether you&apos;re building your future in Nigeria or connecting from abroad, Zaradera
             creates simpler pathways to financial opportunity.
           </motion.p>
 
+          <p
+            aria-label={signature}
+            className="mt-4 min-h-7 font-display text-lg font-bold tracking-[-0.02em] text-orange sm:text-xl"
+          >
+            {reduceMotion ? (
+              signature
+            ) : (
+              <>
+                <span aria-hidden>
+                  {Array.from(signature).map((character, index) => (
+                    <motion.span
+                      key={`${character}-${index}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.01, delay: 0.9 + index * 0.065 }}
+                    >
+                      {character === ' ' ? '\u00A0' : character}
+                    </motion.span>
+                  ))}
+                </span>
+                <motion.span
+                  aria-hidden
+                  className="ml-1 inline-block h-[1.05em] w-0.5 translate-y-[0.12em] bg-orange"
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+                />
+              </>
+            )}
+          </p>
+
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8 }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+            className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center"
           >
             <Cta onClick={goToLoans} withArrow ariaLabel="I'm in Nigeria. Access Zaradera loans">
               I&apos;m in Nigeria
