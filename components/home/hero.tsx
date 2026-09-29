@@ -86,7 +86,7 @@ export function Hero() {
               onClick={() => setAudience('international')}
               ariaLabel="I'm abroad. Explore diaspora services"
             >
-              I&apos;m Abroad
+              I&apos;m outside Nigeria
             </Cta>
           </motion.div>
 

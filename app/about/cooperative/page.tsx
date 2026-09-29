@@ -17,7 +17,7 @@ export default function CooperativePage() {
         <div aria-hidden className="absolute -left-48 top-16 size-[34rem] rounded-full bg-orange/15 blur-[120px]" />
         <div aria-hidden className="absolute -right-40 -top-24 size-[42rem] rounded-full bg-[#3a3593]/45 blur-[140px]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal><p className="eyebrow text-orange">Cooperative society 2</p></Reveal>
+          <Reveal><p className="eyebrow text-orange">Cooperative society</p></Reveal>
           <h1 className="display-xl mt-6 max-w-5xl font-bold text-balance text-white">
             <TextReveal text={title} />
           </h1>

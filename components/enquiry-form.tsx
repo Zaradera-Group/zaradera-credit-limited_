@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react'
 import { CheckCircle2, LoaderCircle, WalletCards } from 'lucide-react'
 import { enquiryCategories, contactMethods, loanProducts, loanTenures, supportedCurrencies } from '@/lib/site.config'
+import { enquirySchema, validationMessage } from '@/lib/validation'
 
 export function EnquiryForm({ compact = false, showLoanDetails = false }: { compact?: boolean; showLoanDetails?: boolean }) {
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'queued' | 'error'>('idle')
@@ -25,9 +26,15 @@ export function EnquiryForm({ compact = false, showLoanDetails = false }: { comp
     setMessage('')
     const form = event.currentTarget
     const payload = Object.fromEntries(new FormData(form))
+    const parsed = enquirySchema.safeParse(payload)
+    if (!parsed.success) {
+      setState('error')
+      setMessage(validationMessage(parsed.error))
+      return
+    }
     try {
       const response = await fetch('/api/enquiries', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(parsed.data),
       })
       const result = await response.json().catch(() => ({}))
       if (!response.ok) throw new Error(result.error || 'We could not send your enquiry.')

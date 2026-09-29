@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server'
 import { isAdmin } from '@/lib/admin-auth'
+import { uploadSchema, validationMessage } from '@/lib/validation'
 
 export async function POST(request: Request) {
   if (!(await isAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const data = await request.formData()
-  const file = data.get('file')
-  if (!(file instanceof File) || !file.type.startsWith('image/') || file.size > 8_000_000) {
-    return NextResponse.json({ error: 'Choose an image smaller than 8 MB.' }, { status: 400 })
-  }
+  const parsed = uploadSchema.safeParse(Object.fromEntries(data))
+  if (!parsed.success) return NextResponse.json({ error: validationMessage(parsed.error) }, { status: 400 })
+  const { file } = parsed.data
 
   const configuredUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY

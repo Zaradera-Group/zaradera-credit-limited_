@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { chatRequestSchema } from '@/lib/validation'
 
 export const runtime = 'nodejs'
 
@@ -71,23 +72,18 @@ export async function POST(request: NextRequest) {
   if (!apiKey) return NextResponse.json({ error: 'The chat assistant is temporarily unavailable.' }, { status: 503 })
   if (rateLimited(clientAddress(request))) return NextResponse.json({ error: 'Please wait a few minutes before sending another message.' }, { status: 429 })
 
-  let body: { messages?: ChatMessage[] }
+  let body: unknown
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
   }
 
-  const messages = Array.isArray(body.messages) ? body.messages.slice(-8) : []
-  const valid = messages.length > 0 && messages.every(message =>
-    (message.role === 'user' || message.role === 'assistant')
-    && typeof message.content === 'string'
-    && message.content.trim().length > 0
-    && message.content.length <= 1200,
-  )
-  if (!valid || messages[messages.length - 1]?.role !== 'user') {
+  const parsed = chatRequestSchema.safeParse(body)
+  if (!parsed.success) {
     return NextResponse.json({ error: 'Please enter a shorter message and try again.' }, { status: 400 })
   }
+  const messages: ChatMessage[] = parsed.data.messages
 
   try {
     const response = await fetch('https://api.openai.com/v1/responses', {

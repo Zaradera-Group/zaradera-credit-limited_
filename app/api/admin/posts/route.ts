@@ -2,8 +2,8 @@ import postgres from 'postgres'
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
 import { isAdmin } from '@/lib/admin-auth'
+import { deletePostSchema, postSchema, validationMessage } from '@/lib/validation'
 
-function clean(value: FormDataEntryValue | null, max = 10000) { return String(value || '').trim().slice(0, max) }
 function databaseError(error: unknown) {
   const detail = error instanceof Error ? error.message : String(error)
   const code = typeof error === 'object' && error !== null && 'code' in error ? String(error.code) : ''
@@ -21,20 +21,11 @@ function databaseError(error: unknown) {
 export async function POST(request: Request) {
   if (!(await isAdmin())) return NextResponse.json({ error: 'Your admin session has expired. Please sign in again.' }, { status: 401 })
   const form = await request.formData()
+  const parsed = postSchema.safeParse(Object.fromEntries(form))
+  if (!parsed.success) return NextResponse.json({ error: validationMessage(parsed.error) }, { status: 400 })
   const url = process.env.DATABASE_URL
   if (!url) return NextResponse.json({ error: 'The database connection is not configured.' }, { status: 503 })
-  const id = clean(form.get('id'), 100)
-  const title = clean(form.get('title'), 180)
-  const slug = clean(form.get('slug'), 180).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-  const excerpt = clean(form.get('excerpt'), 500)
-  const content = clean(form.get('content'), 100000)
-  const category = clean(form.get('category'), 80)
-  const author = clean(form.get('author'), 100)
-  const cover = clean(form.get('coverImage'), 1000)
-  const status = clean(form.get('status')) === 'published' ? 'published' : 'draft'
-  const missing = [[title, 'Title'], [slug, 'Slug'], [excerpt, 'Excerpt'], [content, 'Content'], [category, 'Category'], [author, 'Author']].filter(([value]) => !value).map(([, label]) => label)
-  if (missing.length) return NextResponse.json({ error: `Complete the following required ${missing.length === 1 ? 'field' : 'fields'}: ${missing.join(', ')}.` }, { status: 400 })
-  const published = clean(form.get('publishedAt'), 50)
+  const { id, title, slug, excerpt, content, category, author, coverImage: cover, status, publishedAt: published } = parsed.data
   let sql: ReturnType<typeof postgres> | null = null
   try {
     sql = postgres(url, { max: 1, prepare: false })
@@ -48,9 +39,11 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   if (!(await isAdmin())) return NextResponse.json({ error: 'Your admin session has expired.' }, { status: 401 })
-  const { id } = await request.json().catch(() => ({ id: '' }))
+  const parsed = deletePostSchema.safeParse(await request.json().catch(() => null))
+  if (!parsed.success) return NextResponse.json({ error: 'Unable to identify the post.' }, { status: 400 })
+  const { id } = parsed.data
   const url = process.env.DATABASE_URL
-  if (!url || typeof id !== 'string' || !id) return NextResponse.json({ error: 'Unable to identify the post.' }, { status: 400 })
+  if (!url) return NextResponse.json({ error: 'The database connection is not configured.' }, { status: 503 })
   const sql = postgres(url, { max: 1, prepare: false })
   try { await sql`delete from blog_posts where id=${id}` }
   catch (error) { return NextResponse.json({ error: databaseError(error) }, { status: 500 }) }

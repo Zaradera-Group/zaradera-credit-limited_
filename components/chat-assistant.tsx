@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { Bot, LoaderCircle, MessageCircle, Send, Sparkles, X } from 'lucide-react'
+import { chatRequestSchema } from '@/lib/validation'
 
 type Message = { role: 'user' | 'assistant'; content: string }
 
@@ -35,6 +36,11 @@ export function ChatAssistant() {
     const content = text.trim()
     if (!content || sending) return
     const next = [...messages, { role: 'user' as const, content }]
+    const parsed = chatRequestSchema.safeParse({ messages: next.slice(-8) })
+    if (!parsed.success) {
+      setError('Please enter a shorter message and try again.')
+      return
+    }
     setMessages(next)
     setInput('')
     setError('')
@@ -43,7 +49,7 @@ export function ChatAssistant() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: next.slice(-8) }),
+        body: JSON.stringify(parsed.data),
       })
       const result = await response.json().catch(() => ({}))
       if (!response.ok) throw new Error(result.diagnostic || result.error || 'The assistant is temporarily unavailable.')
