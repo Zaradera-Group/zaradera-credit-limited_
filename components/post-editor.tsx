@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { Link2 } from 'lucide-react'
+import { Bold, Heading2, Link2 } from 'lucide-react'
 import type { Post } from '@/lib/blog'
 
 export function PostEditorFields({ post, pending = false }: { post?: Post | null; pending?: boolean }) {
@@ -65,6 +65,40 @@ export function PostEditorFields({ post, pending = false }: { post?: Post | null
     }
   }
 
+  function insertBold() {
+    const textarea = contentRef.current
+    if (!textarea) return
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+    const selectedText = content.slice(start, end).trim()
+    const label = selectedText || window.prompt('Enter the text that should appear bold:')?.trim()
+    if (!label) return
+    const markdown = `**${label.replace(/\*+/g, '')}**`
+    setContent(value => `${value.slice(0, start)}${markdown}${value.slice(end)}`)
+    window.requestAnimationFrame(() => {
+      textarea.focus()
+      textarea.setSelectionRange(start + markdown.length, start + markdown.length)
+    })
+  }
+
+  function insertSubheading() {
+    const textarea = contentRef.current
+    if (!textarea) return
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+    const selectedText = content.slice(start, end).trim()
+    const label = selectedText || window.prompt('Enter the subheading:')?.trim()
+    if (!label) return
+    const prefix = start > 0 && !content.slice(0, start).endsWith('\n\n') ? '\n\n' : ''
+    const suffix = end < content.length && !content.slice(end).startsWith('\n\n') ? '\n\n' : ''
+    const markdown = `${prefix}## ${label.replace(/^#+\s*/, '')}${suffix}`
+    setContent(value => `${value.slice(0, start)}${markdown}${value.slice(end)}`)
+    window.requestAnimationFrame(() => {
+      textarea.focus()
+      textarea.setSelectionRange(start + markdown.length, start + markdown.length)
+    })
+  }
+
   return <>
     <input type="hidden" name="id" value={post?.id || ''} />
     <label className="grid gap-2 font-semibold">Title<input name="title" required defaultValue={post?.title} className={input} onChange={event => { if (!post) setSlug(event.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')) }} /></label>
@@ -77,12 +111,19 @@ export function PostEditorFields({ post, pending = false }: { post?: Post | null
     <div className="grid gap-2">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <label htmlFor="post-content" className="font-semibold">Content</label>
-        <button type="button" onClick={insertLink} className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-4 py-2 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-          <Link2 className="size-4" aria-hidden="true" />
-          Insert link
-        </button>
+        <div className="flex flex-wrap gap-2" role="toolbar" aria-label="Article formatting">
+          <button type="button" onClick={insertSubheading} className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-4 py-2 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+            <Heading2 className="size-4" aria-hidden="true" /> Subheading
+          </button>
+          <button type="button" onClick={insertBold} className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-4 py-2 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+            <Bold className="size-4" aria-hidden="true" /> Bold
+          </button>
+          <button type="button" onClick={insertLink} className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-4 py-2 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+            <Link2 className="size-4" aria-hidden="true" /> Insert link
+          </button>
+        </div>
       </div>
-      <p className="text-xs leading-5 text-muted-foreground">Select words in the article, choose “Insert link”, then paste the complete news or website address.</p>
+      <p className="text-xs leading-5 text-muted-foreground">Select text, then choose Subheading, Bold, or Insert link. Article images are arranged automatically below the written content.</p>
       <textarea id="post-content" ref={contentRef} name="content" required rows={18} value={content} onChange={event => setContent(event.target.value)} className={`${input} font-mono text-sm leading-6`} />
     </div>
     <label className="grid cursor-pointer place-items-center rounded-2xl border border-dashed border-orange/35 bg-orange/[.035] p-7 text-center"><span className="font-semibold text-navy">{inlineUploading ? 'Uploading article images…' : 'Add images inside this post'}</span><span className="mt-1 text-xs font-normal text-muted-foreground">Select one or multiple images. They will be inserted at the current position in the content.</span><input type="file" accept="image/*" multiple disabled={inlineUploading} className="mt-3 text-sm" onChange={event => void uploadInlineImages(event.target.files)} /></label>

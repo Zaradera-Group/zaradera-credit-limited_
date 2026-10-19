@@ -42,10 +42,13 @@ export function contentHtml(markdown: string, coverImage = '') {
     // an invalid image URL is ever entered manually.
     .replace(/(?<!!)\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
 
+  // The cover belongs to the blog listing/card and must never be repeated in
+  // the article gallery, even if it was also pasted into the content field.
   const safeCover = coverImage.trim().replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-  if (/^https?:\/\//.test(safeCover) && !images.some(item => item.src === safeCover)) images.push({ alt: '', src: safeCover })
-  const gallery = images.length
-    ? `<div class="blog-image-gallery blog-image-gallery--${Math.min(images.length, 4)}">${images.map((image, index) => `<figure><img src="${image.src}" alt="${image.alt}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async"></figure>`).join('')}</div>`
+  const galleryImages = images.filter(image => !safeCover || image.src !== safeCover)
+  const layout = galleryImages.length > 4 ? 'many' : String(galleryImages.length)
+  const gallery = galleryImages.length
+    ? `<div class="blog-image-gallery blog-image-gallery--${layout}">${galleryImages.map((image, index) => `<figure><img src="${image.src}" alt="${image.alt}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async"></figure>`).join('')}</div>`
     : ''
 
   return content + gallery
