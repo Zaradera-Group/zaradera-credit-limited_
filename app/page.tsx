@@ -1,6 +1,5 @@
 import { SiteNav } from '@/components/site-nav'
 import { SiteFooter } from '@/components/site-footer'
-import { CinematicIntro } from '@/components/home/cinematic-intro'
 import { Hero } from '@/components/home/hero'
 import { IntroStatement } from '@/components/home/intro-statement'
 import { TrustedBy } from '@/components/home/trusted-by'
@@ -18,7 +17,6 @@ import { LatestPosts } from '@/components/home/latest-posts'
 export default function HomePage() {
   return (
     <>
-      <CinematicIntro />
       <SiteNav overlayHero />
       <main id="main">
         <Hero />

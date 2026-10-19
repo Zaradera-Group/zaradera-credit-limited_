@@ -1,5 +1,5 @@
 import postgres from 'postgres'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextResponse } from 'next/server'
 import { isAdmin } from '@/lib/admin-auth'
 import { deletePostSchema, postSchema, validationMessage } from '@/lib/validation'
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     else await sql`insert into blog_posts(title,slug,excerpt,content,category,author,cover_image,status,published_at) values(${title},${slug},${excerpt},${content},${category},${author},${cover},${status},${status === 'published' ? (published || new Date().toISOString()) : null})`
   } catch (error) { return NextResponse.json({ error: databaseError(error) }, { status: 500 }) }
   finally { if (sql) await sql.end() }
-  revalidatePath('/blog'); revalidatePath('/'); revalidatePath('/admin/posts')
+  revalidateTag('blog-posts', 'max'); revalidatePath('/blog'); revalidatePath('/'); revalidatePath('/admin/posts')
   return NextResponse.json({ ok: true })
 }
 
@@ -48,6 +48,6 @@ export async function DELETE(request: Request) {
   try { await sql`delete from blog_posts where id=${id}` }
   catch (error) { return NextResponse.json({ error: databaseError(error) }, { status: 500 }) }
   finally { await sql.end() }
-  revalidatePath('/blog'); revalidatePath('/'); revalidatePath('/admin/posts')
+  revalidateTag('blog-posts', 'max'); revalidatePath('/blog'); revalidatePath('/'); revalidatePath('/admin/posts')
   return NextResponse.json({ ok: true })
 }
